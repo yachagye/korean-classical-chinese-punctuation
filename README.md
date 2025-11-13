@@ -361,15 +361,13 @@ python 구두점_지정_실행파일_빌드.py
   - Mixed Precision: bf16
 
 ### 디렉토리 구조
-
 ```
 korean-classical-chinese-punctuation/
-├── data/                    # 데이터 전처리 스크립트
-├── models/                  # 학습 및 추론 코드
-├── evaluation/              # 평가 스크립트
-├── applications/            # GUI 및 응용 프로그램
-├── results/                 # 평가 결과
-└── docs/                    # 문서
+├── preprocessing/           # 전처리 스크립트 (1_1 ~ 1_6)
+├── data_generation/         # 학습 데이터 생성 (2, 3)
+├── training/                # 모델 학습 및 평가 (4_0, 6)
+├── inference/               # 추론 및 활용 (구두점7_*)
+└── build/                   # 실행파일 빌드 스크립트
 ```
 
 ### 인용
@@ -769,15 +767,13 @@ python build_punctuation_executable.py
   - Mixed Precision: bf16
 
 ### Directory Structure
-
 ```
 korean-classical-chinese-punctuation/
-├── data/                    # Data preprocessing scripts
-├── models/                  # Training and inference code
-├── evaluation/              # Evaluation scripts
-├── applications/            # GUI and applications
-├── results/                 # Evaluation results
-└── docs/                    # Documentation
+├── preprocessing/           # Preprocessing scripts (1_1 ~ 1_6)
+├── data_generation/         # Training data generation (2, 3)
+├── training/                # Model training and evaluation (4_0, 6)
+├── inference/               # Inference and applications (punctuation_7_*)
+└── build/                   # Executable build scripts
 ```
 
 ### Citation
