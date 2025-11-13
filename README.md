@@ -79,7 +79,7 @@
 ```
 한국 고전한문 구두점 예측 모델/
 │
-├── 전처리 텍스트/              # 원본 교감표점 텍스트 (ZIP)
+├── 전처리 텍스트/              # 전처리 표점 텍스트 (ZIP)
 │   ├── 기타.zip
 │   ├── 등록.zip               
 │   ├── 문집.zip                
@@ -303,7 +303,7 @@ korean-classical-chinese-punctuation/
 **APA 스타일:**
 ```
 양정현 (2025). 딥러닝 기반 한국 고전한문 표점 추론 자동화 모델의 구축과 활용. 
-역사학연구, 100, [페이지]. [DOI 발급 후 추가]
+역사학연구, 100, [페이지]. [DOI]
 ```
 
 **BibTeX:**
@@ -323,7 +323,7 @@ korean-classical-chinese-punctuation/
 - 권호: 100호
 - 발행: 2025년 11월 30일
 - 출판사: 호남사학회
-- DOI: [발급 후 추가]
+- DOI: 
 
 ### 라이선스 및 사용 조건
 
@@ -492,7 +492,7 @@ All training data, models, code, and executables are available for free download
 ```
 Korean Classical Chinese Punctuation Model/
 │
-├── Preprocessed Texts/          # Original collated texts (ZIP)
+├── Preprocessed Texts/          # Preprocessed texts file (ZIP)
 │   ├── Miscellaneous.zip
 │   ├── Registers.zip            
 │   ├── Collections.zip          
@@ -719,7 +719,7 @@ If you use this model, please cite:
 ```
 Yang, J. (2025). Development and Application of a Deep Learning–Based Model 
 for Automated Punctuation Inference in Korean Classical Chinese. 
-The Korean Journal of History (Yoksahak Yongu), 100, [pages]. [DOI to be assigned]
+The Korean Journal of History (Yoksahak Yongu), 100, [pages]. [DOI]
 ```
 
 **BibTeX:**
@@ -739,7 +739,7 @@ The Korean Journal of History (Yoksahak Yongu), 100, [pages]. [DOI to be assigne
 - Volume: 100
 - Publication: November 30, 2025
 - Publisher: Honam Historical Society
-- DOI: [To be assigned]
+- DOI: 
 
 ### License and Terms of Use
 
