@@ -265,11 +265,77 @@ python 구두점_지정_실행파일_빌드.py
 ### 학습 데이터
 
 **출처**
-- 조선왕조실록 (전체) - 연대기류
-- 비변사등록 (전체) - 등록류
-- 승정원일기 (전체) - 일기류
-- 한국사료총서 (일기류, 문집)
-- 한국사데이터베이스 (법령, 등록)
+- 국사편찬위원회 한국사데이터베이스
+```
+
+**labels 인덱스**: [,  。 · ? ! 《 》]
+- 예: `[1,0,0,0,0,0,0]` = 쉼표(,)
+- 예: `[0,1,0,0,0,0,0]` = 마침표(。)
+
+#### 원본 텍스트 ZIP 파일 정보
+
+| ZIP 파일 | 압축 해제 후 | 주요 문헌 | 장르 |
+|----------|-------------|----------|------|
+| 연대기.zip | ~2GB | 조선왕조실록 | 편년체 사료 |
+| 등록.zip | ~1.5GB | 비변사등록 | 관청 등록 |
+| 일기.zip | ~1.2GB | 승정원일기 | 일기류 |
+| 문집.zip | ~1GB | 한국문집총간 | 시문집 |
+| 법령.zip | ~500MB | 경국대전 등 | 법전류 |
+| 지리지.zip | ~300MB | 각 도 읍지 | 지리서 |
+| 전기.zip | ~200MB | 행장, 묘지명 | 전기류 |
+| 기타.zip | ~100MB | 기타 문헌 | 혼합 |
+
+**압축 형식**: UTF-8 인코딩 TXT 파일
+**구두점**: 원본 교감표점 (26종 → 전처리 후 7종으로 변환)
+
+### 빠른 시작
+
+#### 방법 1: Windows 실행 파일 (권장 - 일반 사용자)
+
+```
+1. Google Drive에서 "한문구두점추론.exe" 다운로드 (3.6GB)
+2. ZIP 압축 해제
+3. 한문구두점추론.exe 실행
+4. GUI에서 파일 선택 → 처리 시작
+```
+
+**다운로드 링크**: [Google Drive](https://drive.google.com/drive/folders/1WGueOa8Oz7kqv4ha7_9pgFRKOzXWId2H?usp=drive_link) (별도 제공)
+
+#### 방법 2: Python 코드 실행 (개발자/연구자)
+
+**Python 코드**
+
+```python
+from 구두점7_추론모델 import PunctuationPredictor
+
+# 모델 로드
+predictor = PunctuationPredictor(
+    checkpoint_path="path/to/checkpoint.ckpt"
+)
+
+# 예측
+text = "太祖康獻大王姓李諱成桂字君晉古諱旦號松軒"
+result = predictor.predict(text)
+print(result)
+# 출력: 太祖康獻大王, 姓李, 諱成桂, 字君晉。古諱旦, 號松軒。
+```
+
+**GUI 실행파일**
+
+```bash
+# Windows용 실행파일 빌드
+python 구두점_지정_실행파일_빌드.py
+
+# 실행
+./dist/한문구두점추론.exe
+```
+
+### 학습 데이터
+
+**출처**
+- 국사편찬위원회 한국사데이터베이스(https://db.history.go.kr/)
+- 한국고전종합DB(https://db.itkc.or.kr/)
+- 한국학중앙연구원 디지털장서각(https://jsg.aks.ac.kr/)
 
 **규모**
 - 총 문자 수: 약 4억 2천만 자
@@ -331,9 +397,9 @@ korean-classical-chinese-punctuation/
 **논문 정보:**
 - 저널: 역사학연구 (The Korean Journal of History)
 - 권호: 100호
-- 발행: 2025년 11월
+- 발행: 2025년 11월 30일
 - 출판사: 호남사학회
-- KCI 저널: https://www.kci.go.kr/kciportal/po/search/poCitaView.kci?sereId=001257
+- DOI:  
 
 ### 라이선스 및 사용 조건
 
@@ -381,11 +447,6 @@ korean-classical-chinese-punctuation/
 
 **전체 라이선스 조문**: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 
-### 프로젝트 정보
-
-- **연구 기관**: 순천대학교 지리산권문화연구원
-- **연구 과제**: 전통 차 제조기술의 역사적 복원과 현대적 계승을 위한 DB 구축 (한국연구재단)
-
 ### 향후 개선 과제
 
 논문에서 제안된 향후 연구 방향:
@@ -412,7 +473,7 @@ korean-classical-chinese-punctuation/
 
 ### 문의
 
-- **개발자**: 양정현 (순천대학교 지리산권문화연구원 학술연구교수)
+- **개발자**: 양정현
 - **이메일**: yachagye@naver.com
 - **GitHub**: https://github.com/yachagye/korean-classical-chinese-punctuation
 - **Issues**: https://github.com/yachagye/korean-classical-chinese-punctuation/issues
