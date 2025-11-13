@@ -466,7 +466,7 @@ korean-classical-chinese-punctuation/
 
 1. **쌍 구조 표점**: 서명 인용부호(《》)는 F1 ~0.73으로 다른 구두점 대비 낮은 성능
 2. **희소 데이터**: 느낌표(!)는 학습 데이터 부족으로 재현율 저하
-3. **컨텍스트 윈도우**: 최대 512 토큰 (약 450-500자) 제한
+3. **모델 컨텍스트**: 512 토큰 단위로 처리 (슬라이딩 윈도우로 긴 텍스트 자동 처리)
 4. **도메인 편향**: 공식 기록물 중심 학습으로 사적 문헌에서 성능 저하 가능
 
 ### 문의
@@ -873,7 +873,7 @@ Future research directions proposed in the paper:
 
 1. **Paired Punctuation**: Title quotation marks (《》) show lower performance (~F1 0.73) compared to other punctuation
 2. **Sparse Data**: Exclamation marks (!) have low recall due to insufficient training data
-3. **Context Window**: Maximum 512 tokens (~450-500 characters) limitation
+3. **Model Context**: Processes in 512-token units (automatic handling of long texts via sliding window)
 4. **Domain Bias**: Training focused on official records may lead to performance degradation on private documents
 
 ### Contact
