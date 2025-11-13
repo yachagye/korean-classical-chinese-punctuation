@@ -1,0 +1,23 @@
+# PyTorch
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Transformers
+transformers>=4.30.0
+
+# PyTorch Lightning
+pytorch-lightning>=2.0.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Progress Bar
+tqdm>=4.65.0
+
+# GUI (tkinter는 Python 내장 모듈)
+# Windows/Linux: Python 설치 시 기본 포함
+# macOS: Python 3.x 설치 시 기본 포함
+
+# Optional: For building executable
+# pyinstaller>=5.13.0
