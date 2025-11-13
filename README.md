@@ -564,6 +564,6 @@ For commercial use, please contact: yachagye@naver.com
 
 ### Contact
 
-- **Author**: Jeonghyeon Yang
+- **Author**: Junghyun Yang
 - **Email**: yachagye@naver.com
 - **GitHub**: https://github.com/yachagye/korean-classical-chinese-punctuation
