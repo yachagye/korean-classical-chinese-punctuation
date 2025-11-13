@@ -489,19 +489,26 @@ korean-classical-chinese-punctuation/
 
 ### Overview
 
-A deep learning model for automatic punctuation prediction in Korean Classical Chinese texts. Based on Chinese-RoBERTa with multi-label classification for 7 types of punctuation marks.
+A deep learning model for automatically predicting punctuation marks in Korean Classical Chinese texts. Based on Chinese-RoBERTa with multi-label token classification, the model predicts 7 types of punctuation marks using collated punctuation texts accumulated through previous research.
+
+**Key Applications**:
+- Text preprocessing and normalization
+- Index and search system construction
+- Translation preprocessing
+- OCR post-processing
+- Digital humanities research
 
 ### Key Features
 
-- **High Accuracy**: F1 Score 0.9050
+- **High Accuracy**: F1 Score 0.9050 achieved
 - **Large-scale Training**: 420M characters, 3.4M samples
 - **7 Punctuation Types**: , 。 · ? ! 《 》
-- **Domain-specific**: Supports various genres (chronicles, diaries, collections)
-- **Ready-to-use**: GUI application provided
+- **Domain-specific**: Supports various genres (chronicles, registers, diaries, collections)
+- **Ready-to-use**: GUI executable provided
 
 ### Performance
 
-**Overall Performance**
+**Overall Performance (Validation Data)**
 - F1 Score: 0.9050
 - Precision: 0.9057
 - Recall: 0.9043
@@ -518,37 +525,277 @@ A deep learning model for automatic punctuation prediction in Korean Classical C
 | 》 | 0.7311 | 0.8024 | 0.6713 |
 | ! | 0.6369 | 0.8114 | 0.5241 |
 
-### Quick Start
+**Domain-specific Performance**
 
-#### Installation
+| Domain | F1 Score | Description |
+|--------|----------|-------------|
+| Chronicles | 0.9162 | Annals of the Joseon Dynasty, etc. |
+| Registers | 0.9114 | Government office records |
+| Gazetteers | 0.9116 | Geographical records |
+| Biographies | 0.8606 | Personal biographies, epitaphs |
+| Legal Codes | 0.8485 | Law codes, ritual texts |
+| Collections | 0.8354 | Literary collections |
+| Diaries | 0.8229 | Royal secretariat diaries, personal diaries |
 
-```bash
-git clone https://github.com/yachagye/korean-classical-chinese-punctuation.git
-cd korean-classical-chinese-punctuation
-pip install -r requirements.txt
+**External Validation (Unseen Data)**
+
+Performance evaluation on punctuation position matching for unseen data with only sentence markers:
+
+| Dataset | F1 Score | Description |
+|---------|----------|-------------|
+| Korean Literary Collections | 0.8784 | Classical Chinese in literary collections |
+| Ilseongrok | 0.9065 | Classical Chinese in diaries |
+
+### 📦 Data and Model Downloads
+
+**Google Drive Public Repository**: https://drive.google.com/drive/folders/1WGueOa8Oz7kqv4ha7_9pgFRKOzXWId2H?usp=drive_link
+
+All training data, models, code, and executables are available for free download.
+
+#### Folder Structure
+
+```
+Korean Classical Chinese Punctuation Model/
+│
+├── Preprocessed Texts/          # Original collated texts (ZIP)
+│   ├── Miscellaneous.zip
+│   ├── Registers.zip            # Government registers
+│   ├── Collections.zip          # Literary collections
+│   ├── Legal Codes.zip          # Law codes
+│   ├── Chronicles.zip           # Annals of Joseon Dynasty
+│   ├── Diaries.zip             # Royal diaries, etc.
+│   ├── Biographies.zip         # Personal biographies
+│   └── Gazetteers.zip          # Geographical records
+│
+├── Training Data/               # Preprocessed JSONL (ZIP)
+│   ├── train.zip               # Training data (~3.4M samples)
+│   └── val.zip                 # Validation data
+│
+├── Models(.ckpt)/              # Trained model checkpoints
+│   └── best_model_9050.zip    # F1: 0.9050 model (~3.6GB)
+│       └── checkpoint.ckpt
+│
+├── Code/                       # Complete source code
+│   ├── [Preprocessing Scripts]
+│   │   ├── 1_1_preprocessing_remove_korean_etc.py
+│   │   ├── 1_2_preprocessing_convert_26_punctuations.py
+│   │   ├── 1_3_preprocessing_preserve_chinese_26_punct.py
+│   │   ├── 1_4_preprocessing_convert_7_punctuations.py
+│   │   ├── 1_5_preprocessing_remove_unpunctuated_lines.py
+│   │   └── 1_6_preprocessing_remove_duplicate_punct.py
+│   │
+│   ├── [Training Data Generation]
+│   │   ├── 2_generate_training_data_7punct_jsonl.py
+│   │   └── 3_validate_training_data_7punct_jsonl.py
+│   │
+│   ├── [Model Training and Evaluation]
+│   │   ├── 4_0_train_punctuation_v1_7punct_Lightning.py
+│   │   └── 6_F1_evaluation.py
+│   │
+│   └── [Inference and Applications]
+│       ├── punctuation_7_inference_model.py    # Core inference module
+│       ├── punctuation_7_process_txt.py       # TXT file processing
+│       ├── punctuation_7_process_csv.py       # CSV file processing
+│       └── punctuation_7_validate_accuracy.py
+│
+└── Korean Classical Chinese Punctuation Program v1.0/
+    ├── README.txt                         # User manual
+    └── ChinesePunctuationInference.zip    # Windows executable (3.6GB)
+        └── ChinesePunctuationInference.exe
 ```
 
-#### Download Model
+#### Download Guide
 
-Download from Google Drive: https://drive.google.com/drive/folders/1WGueOa8Oz7kqv4ha7_9pgFRKOzXWId2H?usp=drive_link
+**1. Executable Only (General Users)**
+```
+📥 Download: Korean Classical Chinese Punctuation Program v1.0/ChinesePunctuationInference.zip
+📦 Size: ~3.6GB
+💻 Purpose: Run directly on Windows (Python not required)
+```
 
-#### Usage Example
+**2. Python Code Execution (Developers)**
+```
+📥 Download: 
+   - Code/ folder (all files)
+   - Models(.ckpt)/best_model_9050.zip
+📦 Size: ~3.7GB
+💻 Usage:
+   python punctuation_7_process_txt.py --checkpoint checkpoint.ckpt --input your_file.txt
+```
+
+**3. Model Training/Research (AI Researchers)**
+```
+📥 Download:
+   - Training Data/train.zip, val.zip
+   - Code/4_0_train_punctuation_v1_7punct_Lightning.py
+   - Models(.ckpt)/best_model_9050.zip (for fine-tuning)
+📦 Size: ~6GB
+💻 Purpose: Model retraining, fine-tuning, experiments
+```
+
+**4. Original Text Research (Historians/Humanists)**
+```
+📥 Download: Preprocessed Texts/ folder (selected ZIPs)
+📦 Size: Each ZIP 100MB-2GB
+💻 Purpose: Data analysis, corpus construction, other research
+```
+
+**5. Full Reproduction**
+```
+📥 Download: All folders
+📦 Size: ~10-15GB
+💻 Purpose: Complete reproduction from raw data to deployment
+📝 Process:
+   1. Extract Preprocessed Texts/ ZIPs
+   2. Run 6-stage preprocessing scripts
+   3. Generate training data (JSONL)
+   4. Train model (Lightning)
+   5. Evaluation and validation
+```
+
+#### Training Data Details
+
+**train.zip when extracted**: `train.jsonl` (~2.5GB)
+- Sample count: ~3.4M
+- Total characters: ~420M
+- Format: JSONL (one sample per line)
+
+**JSONL Structure Example**:
+```json
+{
+  "text": "太祖康獻大王姓李諱成桂字君晉",
+  "labels": [
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0],
+    ...
+  ],
+  "length": 15,
+  "source": "Annals of Joseon Dynasty",
+  "domain": "Chronicles"
+}
+```
+
+**labels index**: [,  。 · ? ! 《 》]
+- Example: `[1,0,0,0,0,0,0]` = comma (,)
+- Example: `[0,1,0,0,0,0,0]` = period (。)
+
+#### Original Text ZIP Information
+
+| ZIP File | Extracted Size | Main Documents | Genre |
+|----------|----------------|----------------|-------|
+| Chronicles.zip | ~2GB | Annals of Joseon Dynasty | Chronological records |
+| Registers.zip | ~1.5GB | Government registers | Official records |
+| Diaries.zip | ~1.2GB | Royal secretariat diaries | Diary records |
+| Collections.zip | ~1GB | Korean literary collections | Poetry/prose collections |
+| Legal Codes.zip | ~500MB | Law codes | Legal texts |
+| Gazetteers.zip | ~300MB | Regional gazetteers | Geographical records |
+| Biographies.zip | ~200MB | Epitaphs, biographies | Biographical texts |
+| Miscellaneous.zip | ~100MB | Other documents | Mixed |
+
+**Compression format**: UTF-8 encoded TXT files
+**Punctuation**: Original collated punctuation (26 types → converted to 7 types after preprocessing)
+
+### Quick Start
+
+#### Method 1: Windows Executable (Recommended - General Users)
+
+```
+1. Download "ChinesePunctuationInference.exe" from Google Drive (3.6GB)
+2. Extract ZIP
+3. Run ChinesePunctuationInference.exe
+4. Select file in GUI → Start processing
+```
+
+**Download Link**: [Google Drive](https://drive.google.com/drive/folders/1WGueOa8Oz7kqv4ha7_9pgFRKOzXWId2H?usp=drive_link)
+
+#### Method 2: Python Code Execution (Developers/Researchers)
+
+**Python Code**
 
 ```python
-from 구두점7_추론모델 import PunctuationPredictor
+from punctuation_7_inference_model import PunctuationPredictor
 
-predictor = PunctuationPredictor(checkpoint_path="path/to/checkpoint.ckpt")
+# Load model
+predictor = PunctuationPredictor(
+    checkpoint_path="path/to/checkpoint.ckpt"
+)
+
+# Prediction
 text = "太祖康獻大王姓李諱成桂字君晉古諱旦號松軒"
 result = predictor.predict(text)
 print(result)
+# Output: 太祖康獻大王, 姓李, 諱成桂, 字君晉。古諱旦, 號松軒。
+```
+
+**GUI Executable**
+
+```bash
+# Build Windows executable
+python build_punctuation_executable.py
+
+# Run
+./dist/ChinesePunctuationInference.exe
+```
+
+### Training Data
+
+**Sources**
+- National Institute of Korean History Database (https://db.history.go.kr/)
+- Korean Classics Comprehensive DB (https://db.itkc.or.kr/)
+- Academy of Korean Studies Digital Library (https://jsg.aks.ac.kr/)
+
+**Scale**
+- Total characters: ~420M
+- Training samples: ~3.4M
+- Data types: 8 genres (chronicles, collections, diaries, registers, legal codes, gazetteers, biographies, etc.)
+- Punctuation types: 7 (, 。 · ? ! 《 》)
+
+**Preprocessing**
+- Collection and refinement of collated punctuation texts
+- Standardization to 7 punctuation types
+- 6-stage preprocessing pipeline
+
+### Model Architecture
+
+- **Base Model**: Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`)
+- **Task**: Multi-label Classification
+- **Labels**: 7 punctuation marks
+- **Training**:
+  - GPU: L40S 48GB
+  - Batch Size: 160 (effective)
+  - Learning Rate: 2e-5
+  - Epochs: 3
+  - Mixed Precision: bf16
+
+### Directory Structure
+
+```
+korean-classical-chinese-punctuation/
+├── data/                    # Data preprocessing scripts
+├── models/                  # Training and inference code
+├── evaluation/              # Evaluation scripts
+├── applications/            # GUI and applications
+├── results/                 # Evaluation results
+└── docs/                    # Documentation
 ```
 
 ### Citation
 
+If you use this model, please cite:
+
+**APA Style:**
+```
+Yang, J. (2025). Development and Application of a Deep Learning–Based Model 
+for Automated Punctuation Inference in Korean Classical Chinese. 
+The Korean Journal of History (Yoksahak Yongu), 100, [pages]. [DOI to be assigned]
+```
+
+**BibTeX:**
 ```bibtex
 @article{yang2025punctuation,
   title={Development and Application of a Deep Learning–Based Model for Automated Punctuation Inference in Korean Classical Chinese},
-  author={Yang, Jeonghyeon},
+  author={Yang, Junghyun},
   journal={The Korean Journal of History (Yoksahak Yongu)},
   year={2025},
   volume={100},
@@ -556,14 +803,91 @@ print(result)
 }
 ```
 
-### License
+**Paper Information:**
+- Journal: The Korean Journal of History (Yoksahak Yongu)
+- Volume: 100
+- Publication: November 30, 2025
+- Publisher: Honam Historical Society
+- DOI: [To be assigned]
 
-CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike)
+### License and Terms of Use
 
-For commercial use, please contact: yachagye@naver.com
+**License**: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike)
+
+#### ✅ Permitted Uses
+
+**Academic Research**:
+- Paper writing and citation
+- Academic presentations and education
+- Research-purpose modification and improvement
+- Non-profit research projects
+
+**Non-commercial Applications**:
+- Educational materials and practice in educational institutions
+- Digital archive construction by public institutions
+- Open-source project integration
+- Cultural heritage digitization projects
+
+#### ❌ Restricted Uses
+
+**Commercial Use**:
+- Sale of paid services or products
+- Corporate profit-oriented use
+- Commercial license redistribution
+- Use for advertising revenue
+
+**Commercial Use Inquiries**: yachagye@naver.com
+- Commercial licenses can be granted through individual negotiation
+- Compliance with Korean Research Foundation project output utilization regulations
+
+#### 📋 Conditions
+
+1. **Attribution**: 
+   - Must specify original author and source
+   - Paper citation required
+
+2. **NonCommercial**:
+   - Commercial use prohibited
+   - Prior consultation required
+
+3. **ShareAlike**:
+   - Derivative works must use same license
+   - Continue open-source spirit
+
+**Full License Terms**: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+### Future Improvements
+
+Future research directions proposed in the paper:
+
+1. **Two-Track System**
+   - Improve performance for paired punctuation (《》)
+   - Enhance long-distance dependency modeling
+
+2. **Document Type-Adaptive Modules**
+   - Domain-specific fine-tuning
+   - Genre-adaptive architecture
+
+3. **Multi-task Integration**
+   - Combine with sentence structure analysis
+   - Integrate Named Entity Recognition (NER)
+   - Multi-task Learning structure
+
+### Limitations
+
+1. **Paired Punctuation**: Title quotation marks (《》) show lower performance (~F1 0.73) compared to other punctuation
+2. **Sparse Data**: Exclamation marks (!) have low recall due to insufficient training data
+3. **Context Window**: Maximum 512 tokens (~450-500 characters) limitation
+4. **Domain Bias**: Training focused on official records may lead to performance degradation on private documents
 
 ### Contact
 
-- **Author**: Junghyun Yang
+- **Developer**: Junghyun Yang
 - **Email**: yachagye@naver.com
 - **GitHub**: https://github.com/yachagye/korean-classical-chinese-punctuation
+- **Issues**: https://github.com/yachagye/korean-classical-chinese-punctuation/issues
+- **Commercial Use Inquiries**: Prior consultation via email
+
+### Disclaimer
+
+The punctuation prediction results of this program may not be perfect. For important academic materials or publications, please use after expert review.
