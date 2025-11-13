@@ -65,10 +65,10 @@
 
 고리점만 지정된 미학습 데이터를 대상으로 표점 위치 일치 성능 평가:
 
-| 데이터셋 | F1 Score | 데이터 규모(총 문자 수) |
-|---------|----------|------|
-| 한국문집총간 | 0.8784 | 166,763,095 |
-| 일성록 | 0.9065 | 6,743,710 |
+| 데이터셋 | F1 Score | 데이터 규모(총 문자 수) | 출처 |
+|---------|----------|------|------|
+| 한국문집총간 | 0.8784 | 166,763,095 | 고전종합DB |
+| 일성록 | 0.9065 | 6,743,710 | 규장각한국학연구원 |
 
 ### 📦 데이터 및 모델 다운로드
 
@@ -476,10 +476,10 @@ A deep learning model for automatically predicting punctuation marks in Korean C
 
 Performance evaluation on punctuation position matching for unseen data with only sentence markers:
 
-| Dataset | F1 Score | Data Size (Total Characters) |
-|---------|----------|-------------|
-| Korean Literary Collections | 0.8784 | 166,763,095 |
-| Ilseongrok | 0.9065 | 6,743,710 |
+| Dataset | F1 Score | Data Size (Total Characters) | Source |
+|---------|----------|------------------------------|--------|
+| Korean Literary Collections | 0.8784 | 166,763,095 | ITKC Database |
+| Ilseongrok | 0.9065 | 6,743,710 | Kyujanggak Institute for Korean Studies |
 
 ### 📦 Data and Model Downloads
 
