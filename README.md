@@ -624,8 +624,8 @@ Korean Classical Chinese Punctuation Model/
 | Biographies.zip | ~200MB | Gukjo Inmulgo, etc. |
 | Miscellaneous.zip | ~100MB | |
 
-**Compression format**: UTF-8 encoded TXT files
-**Punctuation**: Original collated punctuation (26 types → converted to 7 types after preprocessing)
+- **Compression format**: UTF-8 encoded TXT files
+- **Punctuation**: Original collated punctuation (26 types → converted to 7 types after preprocessing)
 
 ### Quick Start
 
