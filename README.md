@@ -303,7 +303,7 @@ korean-classical-chinese-punctuation/
 **APA 스타일:**
 ```
 양정현 (2025). 딥러닝 기반 한국 고전한문 표점 추론 자동화 모델의 구축과 활용. 
-역사학연구, 100, [페이지]. [DOI]
+역사학연구, 100, 267-297. 10.37924/JSSW.100.9
 ```
 
 **BibTeX:**
@@ -323,7 +323,7 @@ korean-classical-chinese-punctuation/
 - 권호: 100호
 - 발행: 2025년 11월 30일
 - 출판사: 호남사학회
-- DOI: 
+- DOI: 10.37924/JSSW.100.9
 
 ### 라이선스 및 사용 조건
 
@@ -719,7 +719,7 @@ If you use this model, please cite:
 ```
 Yang, J. (2025). Development and Application of a Deep Learning–Based Model 
 for Automated Punctuation Inference in Korean Classical Chinese. 
-The Korean Journal of History (Yoksahak Yongu), 100, [pages]. [DOI]
+The Korean Journal of History (Yoksahak Yongu), 100, 267-297. 10.37924/JSSW.100.9
 ```
 
 **BibTeX:**
@@ -739,7 +739,7 @@ The Korean Journal of History (Yoksahak Yongu), 100, [pages]. [DOI]
 - Volume: 100
 - Publication: November 30, 2025
 - Publisher: Honam Historical Society
-- DOI: 
+- DOI: 10.37924/JSSW.100.9
 
 ### License and Terms of Use
 
