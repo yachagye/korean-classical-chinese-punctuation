@@ -148,7 +148,7 @@
 
 **1. 실행파일만 필요한 경우 (일반 사용자)**
 ```
-📥 다운로드: 한국 고전한문 구두점 예측 프로그램 v1.0/한문구두점추론.zip
+📥 다운로드: 한국 고전한문 구두점 예측 프로그램/한문구두점추론_v2.0.zip (v2 권장)
 📦 크기: 약 3.6GB
 💻 용도: Windows에서 바로 실행 (Python 불필요)
 ```
@@ -157,7 +157,7 @@
 ```
 📥 다운로드: 
    - 코드/ 폴더 전체
-   - 모델(.ckpt)/best_model_9110.zip (v2 권장) 또는 best_model_9050.zip (v1)
+   - 모델(.ckpt)/best_model_9110.zip (v2 권장)
 💻 사용법:
    python 구두점7_지정_txt.py --checkpoint checkpoint.ckpt --input your_file.txt
 ```
