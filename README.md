@@ -565,17 +565,20 @@ Korean Classical Chinese Punctuation Model/
 │       ├── build_executable_v1_ChineseRoBERTa.py
 │       └── build_executable_v2_SikuRoBERTa.py
 │
-└── Korean Classical Chinese Punctuation Program v1.0/
-    ├── README.txt                         # User manual
-    └── ChinesePunctuationInference.zip    # Windows executable (3.6GB)
+└── Korean Classical Chinese Punctuation Program/
+    ├── README_v1.0.txt                    # User manual
+    └── ChinesePunctuationInference_v1.0.zip   # Windows executable
         └── ChinesePunctuationInference.exe
+    ├── README_v2.0.txt                    # User manual
+    └── ChinesePunctuationInference_v2.0.zip   # Windows executable
+        └── ChinesePunctuationInference_v2.exe
 ```
 
 #### Download Guide
 
 **1. Executable Only (General Users)**
 ```
-📥 Download: Korean Classical Chinese Punctuation Program v1.0/ChinesePunctuationInference.zip
+📥 Download: Korean Classical Chinese Punctuation Program/ChinesePunctuationInference_v2.0.zip (v2 recommended)
 📦 Size: ~3.6GB
 💻 Purpose: Run directly on Windows (Python not required)
 ```
@@ -584,7 +587,7 @@ Korean Classical Chinese Punctuation Model/
 ```
 📥 Download: 
    - Code/ folder (all files)
-   - Models(.ckpt)/best_model_9110.zip (v2 recommended) or best_model_9050.zip (v1)
+   - Models(.ckpt)/best_model_9110.zip (v2 recommended)
 💻 Usage:
    python punctuation_7_process_txt.py --checkpoint checkpoint.ckpt --input your_file.txt
 ```
@@ -665,9 +668,9 @@ Korean Classical Chinese Punctuation Model/
 #### Method 1: Windows Executable (Recommended - General Users)
 
 ```
-1. Download "한문구두점추론.exe" from Google Drive
+1. Download "ChinesePunctuationInference_v2.0.zip" from Google Drive (v2 recommended)
 2. Extract ZIP
-3. Run 한문구두점추론.exe
+3. Run ChinesePunctuationInference_v2.exe
 4. Select file in GUI → Start processing
 ```
 
