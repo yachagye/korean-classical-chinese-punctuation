@@ -4,6 +4,7 @@
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![GitHub](https://img.shields.io/badge/GitHub-yachagye-181717?logo=github)](https://github.com/yachagye/korean-classical-chinese-punctuation)
+[![DOI](https://img.shields.io/badge/DOI-10.37924/JSSW.100.9-blue)](https://doi.org/10.37924/JSSW.100.9)
 
 [English](#english) | [한국어](#korean)
 
@@ -13,7 +14,7 @@
 
 ### 개요
 
-한국 고전 한문 텍스트에 자동으로 구두점을 예측하는 딥러닝 모델입니다. Chinese-RoBERTa 기반 다중 레이블 토큰 분류 모델로, 선행 연구를 통해 축적된 교감표점 텍스트를 활용하여 7종의 구두점을 예측합니다.
+한국 고전 한문 텍스트에 자동으로 구두점을 예측하는 딥러닝 모델입니다. 선행 연구를 통해 축적된 교감표점 텍스트를 활용하여 7종의 구두점을 예측합니다.
 
 **주요 활용 분야**:
 - 텍스트 전처리 및 정규화
@@ -24,20 +25,29 @@
 
 ### 주요 특징
 
-- **정확도**: F1 Score 0.9050 달성
+- **높은 정확도**: F1 Score 0.9110 (v2)
 - **대규모 학습**: 4억 2천만 자, 340만 개 샘플
 - **7종 구두점**: , 。 · ? ! 《 》
 - **도메인 특화**: 연대기, 등록, 일기, 문집 등 다양한 장르 지원
 - **즉시 사용**: GUI 실행파일 제공
 
+### 모델 버전
+
+| 버전 | 사전학습 모델 | F1 Score | 비고 |
+|------|--------------|----------|------|
+| **v2** | SikuRoBERTa (`SIKU-BERT/sikuroberta`) | **0.9110** | 최신 권장 |
+| v1 | Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`) | 0.9050 | 논문 게재 버전 |
+
 ### 성능
 
-**전체 성능 (검증 데이터)**
-- F1 Score: 0.9050
-- Precision: 0.9057
-- Recall: 0.9043
+**전체 성능**
 
-**구두점별 성능**
+| 버전 | F1 Score | Precision | Recall |
+|------|----------|-----------|--------|
+| **v2** | **0.9110** | 0.9117 | 0.9103 |
+| v1 | 0.9050 | 0.9057 | 0.9043 |
+
+**구두점별 성능 (v1)**
 
 | 구두점 | F1 Score | Precision | Recall |
 |--------|----------|-----------|--------|
@@ -49,7 +59,9 @@
 | 》 | 0.7311 | 0.8024 | 0.6713 |
 | ! | 0.6369 | 0.8114 | 0.5241 |
 
-**도메인별 성능**
+*v2 구두점별 상세 성능은 추후 업데이트 예정*
+
+**도메인별 성능 (v1)**
 
 | 도메인 | F1 Score | 데이터 규모(총 문자 수) |
 |--------|----------|------|
@@ -61,7 +73,7 @@
 | 문집 | 0.8354 | 1,885,268 |
 | 일기 | 0.8229 | 544,768 |
 
-**외부 검증 (미학습 데이터)**
+**외부 검증 (미학습 데이터, v1)**
 
 고리점만 지정된 미학습 데이터를 대상으로 표점 위치 일치 성능 평가:
 
@@ -94,8 +106,8 @@
 │   └── val.zip                # 검증 데이터
 │
 ├── 모델(.ckpt)/               # 학습된 모델 체크포인트
-│   └── best_model_9050.zip   # F1: 0.9050 모델 (1.1GB)
-│       └── checkpoint.ckpt
+│   ├── best_model_9050.zip    # v1: F1 0.9050 (논문 버전)
+│   └── best_model_9110.zip    # v2: F1 0.9110 (최신 권장)
 │
 ├── 코드/                      # 전체 소스코드
 │   ├── [전처리 스크립트]
@@ -111,14 +123,17 @@
 │   │   └── 3_학습데이터_검증_구두점7_jsonl.py
 │   │
 │   ├── [모델 학습 및 평가]
-│   │   ├── 4_0_구두점_학습_v1_구두점7_Lightning.py
+│   │   ├── 4_0_구두점_학습_v1_구두점7_ChineseRoBERTa_Lightning.py
+│   │   ├── 4_0_구두점_학습_v2_구두점7_SikuRoBERTa_Lightning.py
 │   │   └── 6_F1 평가.py
 │   │
 │   └── [추론 및 활용]
 │       ├── 구두점7_추론모델.py        # 핵심 추론 모듈
 │       ├── 구두점7_지정_txt.py       # TXT 파일 처리
 │       ├── 구두점7_지정_csv.py       # CSV 파일 처리
-│       └── 구두점7_검증_위치정확도.py
+│       ├── 구두점7_검증_위치정확도.py
+│       ├── 구두점_지정_실행파일_빌드_v1_ChineseRoBERTa.py
+│       └── 구두점_지정_실행파일_빌드_v2_SikuRoBERTa.py
 │
 └── 한국 고전한문 구두점 예측 프로그램 v1.0/
     ├── README.txt                    # 사용 설명서
@@ -139,7 +154,7 @@
 ```
 📥 다운로드: 
    - 코드/ 폴더 전체
-   - 모델(.ckpt)/best_model_9050.zip
+   - 모델(.ckpt)/best_model_9110.zip (v2 권장) 또는 best_model_9050.zip (v1)
 💻 사용법:
    python 구두점7_지정_txt.py --checkpoint checkpoint.ckpt --input your_file.txt
 ```
@@ -148,8 +163,9 @@
 ```
 📥 다운로드:
    - 학습 데이터/train.zip, val.zip
-   - 코드/4_0_구두점_학습_v1_구두점7_Lightning.py
-   - 모델(.ckpt)/best_model_9050.zip (미세조정 시)
+   - 코드/4_0_구두점_학습_v1_구두점7_ChineseRoBERTa_Lightning.py (v1)
+   - 코드/4_0_구두점_학습_v2_구두점7_SikuRoBERTa_Lightning.py (v2)
+   - 모델(.ckpt)/ (미세조정 시)
 💻 용도: 모델 재학습, 미세조정, 실험
 ```
 
@@ -249,8 +265,11 @@ print(result)
 **GUI 실행파일**
 
 ```bash
-# Windows용 실행파일 빌드
-python 구두점_지정_실행파일_빌드.py
+# Windows용 실행파일 빌드 (v1)
+python 구두점_지정_실행파일_빌드_v1_ChineseRoBERTa.py
+
+# Windows용 실행파일 빌드 (v2)
+python 구두점_지정_실행파일_빌드_v2_SikuRoBERTa.py
 
 # 실행
 ./dist/한문구두점추론.exe
@@ -276,7 +295,8 @@ python 구두점_지정_실행파일_빌드.py
 
 ### 모델 아키텍처
 
-- **Base Model**: Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`)
+**v2 (최신 권장)**
+- **Base Model**: SikuRoBERTa (`SIKU-BERT/sikuroberta`)
 - **Task**: Multi-label Classification
 - **Labels**: 7 punctuation marks
 - **Training**:
@@ -285,6 +305,10 @@ python 구두점_지정_실행파일_빌드.py
   - Learning Rate: 2e-5
   - Epochs: 3
   - Mixed Precision: bf16
+
+**v1 (논문 게재 버전)**
+- **Base Model**: Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`)
+- 기타 설정 동일
 
 ### 디렉토리 구조
 ```
@@ -303,7 +327,7 @@ korean-classical-chinese-punctuation/
 **APA 스타일:**
 ```
 양정현 (2025). 딥러닝 기반 한국 고전한문 표점 추론 자동화 모델의 구축과 활용. 
-역사학연구, 100, 267-297. 10.37924/JSSW.100.9
+역사학연구, 100, 267-297. https://doi.org/10.37924/JSSW.100.9
 ```
 
 **BibTeX:**
@@ -312,9 +336,11 @@ korean-classical-chinese-punctuation/
   title={딥러닝 기반 한국 고전한문 표점 추론 자동화 모델의 구축과 활용},
   author={양정현},
   journal={역사학연구},
-  year={2025},
   volume={100},
-  publisher={호남사학회}
+  pages={267--297},
+  year={2025},
+  publisher={호남사학회},
+  doi={10.37924/JSSW.100.9}
 }
 ```
 
@@ -323,7 +349,7 @@ korean-classical-chinese-punctuation/
 - 권호: 100호
 - 발행: 2025년 11월 30일
 - 출판사: 호남사학회
-- DOI: 10.37924/JSSW.100.9
+- DOI: [10.37924/JSSW.100.9](https://doi.org/10.37924/JSSW.100.9)
 
 ### 라이선스 및 사용 조건
 
@@ -409,22 +435,11 @@ korean-classical-chinese-punctuation/
 
 ---
 
-# Korean Classical Chinese Punctuation Prediction Model
-# 한국 고전한문 구두점 예측 모델
-
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![GitHub](https://img.shields.io/badge/GitHub-yachagye-181717?logo=github)](https://github.com/yachagye/korean-classical-chinese-punctuation)
-
-[English](#english) | [한국어](#korean)
-
----
-
 ## <a id="english"></a>English
 
 ### Overview
 
-A deep learning model for automatically predicting punctuation marks in Korean Classical Chinese texts. Based on Chinese-RoBERTa with multi-label token classification, the model predicts 7 types of punctuation marks using collated punctuation texts accumulated through previous research.
+A deep learning model for automatically predicting punctuation marks in Korean Classical Chinese texts. The model predicts 7 types of punctuation marks using collated punctuation texts accumulated through previous research.
 
 **Key Applications**:
 - Text preprocessing and normalization
@@ -435,20 +450,29 @@ A deep learning model for automatically predicting punctuation marks in Korean C
 
 ### Key Features
 
-- **Accuracy**: F1 Score 0.9050 achieved
+- **High Accuracy**: F1 Score 0.9110 (v2)
 - **Large-scale Training**: 420M characters, 3.4M samples
 - **7 Punctuation Types**: , 。 · ? ! 《 》
 - **Domain-specific**: Supports various genres (chronicles, registers, diaries, collections)
 - **Ready-to-use**: GUI executable provided
 
+### Model Versions
+
+| Version | Pre-trained Model | F1 Score | Note |
+|---------|------------------|----------|------|
+| **v2** | SikuRoBERTa (`SIKU-BERT/sikuroberta`) | **0.9110** | Latest Recommended |
+| v1 | Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`) | 0.9050 | Published in Paper |
+
 ### Performance
 
-**Overall Performance (Validation Data)**
-- F1 Score: 0.9050
-- Precision: 0.9057
-- Recall: 0.9043
+**Overall Performance**
 
-**Per-punctuation Performance**
+| Version | F1 Score | Precision | Recall |
+|---------|----------|-----------|--------|
+| **v2** | **0.9110** | 0.9117 | 0.9103 |
+| v1 | 0.9050 | 0.9057 | 0.9043 |
+
+**Per-punctuation Performance (v1)**
 
 | Punctuation | F1 Score | Precision | Recall |
 |-------------|----------|-----------|--------|
@@ -460,7 +484,9 @@ A deep learning model for automatically predicting punctuation marks in Korean C
 | 》 | 0.7311 | 0.8024 | 0.6713 |
 | ! | 0.6369 | 0.8114 | 0.5241 |
 
-**Domain-specific Performance**
+*Detailed v2 per-punctuation performance to be updated*
+
+**Domain-specific Performance (v1)**
 
 | Domain | F1 Score | Data Size (Total Characters) |
 |--------|----------|-------------|
@@ -472,7 +498,7 @@ A deep learning model for automatically predicting punctuation marks in Korean C
 | Collections | 0.8354 | 1,885,268 |
 | Diaries | 0.8229 | 544,768 |
 
-**External Validation (Unseen Data)**
+**External Validation (Unseen Data, v1)**
 
 Performance evaluation on punctuation position matching for unseen data with only sentence markers:
 
@@ -507,8 +533,8 @@ Korean Classical Chinese Punctuation Model/
 │   └── val.zip                 # Validation data
 │
 ├── Models(.ckpt)/              # Trained model checkpoints
-│   └── best_model_9050.zip    # F1: 0.9050 model (1.1GB)
-│       └── checkpoint.ckpt
+│   ├── best_model_9050.zip     # v1: F1 0.9050 (Paper version)
+│   └── best_model_9110.zip     # v2: F1 0.9110 (Latest recommended)
 │
 ├── Code/                       # Complete source code
 │   ├── [Preprocessing Scripts]
@@ -524,14 +550,17 @@ Korean Classical Chinese Punctuation Model/
 │   │   └── 3_validate_training_data_7punct_jsonl.py
 │   │
 │   ├── [Model Training and Evaluation]
-│   │   ├── 4_0_train_punctuation_v1_7punct_Lightning.py
+│   │   ├── 4_0_train_punctuation_v1_7punct_ChineseRoBERTa_Lightning.py
+│   │   ├── 4_0_train_punctuation_v2_7punct_SikuRoBERTa_Lightning.py
 │   │   └── 6_F1_evaluation.py
 │   │
 │   └── [Inference and Applications]
 │       ├── punctuation_7_inference_model.py    # Core inference module
 │       ├── punctuation_7_process_txt.py       # TXT file processing
 │       ├── punctuation_7_process_csv.py       # CSV file processing
-│       └── punctuation_7_validate_accuracy.py
+│       ├── punctuation_7_validate_accuracy.py
+│       ├── build_executable_v1_ChineseRoBERTa.py
+│       └── build_executable_v2_SikuRoBERTa.py
 │
 └── Korean Classical Chinese Punctuation Program v1.0/
     ├── README.txt                         # User manual
@@ -552,7 +581,7 @@ Korean Classical Chinese Punctuation Model/
 ```
 📥 Download: 
    - Code/ folder (all files)
-   - Models(.ckpt)/best_model_9050.zip
+   - Models(.ckpt)/best_model_9110.zip (v2 recommended) or best_model_9050.zip (v1)
 💻 Usage:
    python punctuation_7_process_txt.py --checkpoint checkpoint.ckpt --input your_file.txt
 ```
@@ -561,8 +590,9 @@ Korean Classical Chinese Punctuation Model/
 ```
 📥 Download:
    - Training Data/train.zip, val.zip
-   - Code/4_0_train_punctuation_v1_7punct_Lightning.py
-   - Models(.ckpt)/best_model_9050.zip (for fine-tuning)
+   - Code/4_0_train_punctuation_v1_7punct_ChineseRoBERTa_Lightning.py (v1)
+   - Code/4_0_train_punctuation_v2_7punct_SikuRoBERTa_Lightning.py (v2)
+   - Models(.ckpt)/ (for fine-tuning)
 💻 Purpose: Model retraining, fine-tuning, experiments
 ```
 
@@ -664,8 +694,11 @@ print(result)
 **GUI Executable**
 
 ```bash
-# Build Windows executable (requires PyInstaller)
-python 구두점_지정_실행파일_빌드.py
+# Build Windows executable (v1)
+python 구두점_지정_실행파일_빌드_v1_ChineseRoBERTa.py
+
+# Build Windows executable (v2)
+python 구두점_지정_실행파일_빌드_v2_SikuRoBERTa.py
 
 # Run
 ./dist/한문구두점추론.exe
@@ -691,7 +724,8 @@ python 구두점_지정_실행파일_빌드.py
 
 ### Model Architecture
 
-- **Base Model**: Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`)
+**v2 (Latest Recommended)**
+- **Base Model**: SikuRoBERTa (`SIKU-BERT/sikuroberta`)
 - **Task**: Multi-label Classification
 - **Labels**: 7 punctuation marks
 - **Training**:
@@ -700,6 +734,10 @@ python 구두점_지정_실행파일_빌드.py
   - Learning Rate: 2e-5
   - Epochs: 3
   - Mixed Precision: bf16
+
+**v1 (Paper Version)**
+- **Base Model**: Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`)
+- Other settings identical
 
 ### Directory Structure
 ```
@@ -719,18 +757,21 @@ If you use this model, please cite:
 ```
 Yang, J. (2025). Development and Application of a Deep Learning–Based Model 
 for Automated Punctuation Inference in Korean Classical Chinese. 
-The Korean Journal of History (Yoksahak Yongu), 100, 267-297. 10.37924/JSSW.100.9
+The Korean Journal of History (Yoksahak Yongu), 100, 267-297. 
+https://doi.org/10.37924/JSSW.100.9
 ```
 
 **BibTeX:**
 ```bibtex
 @article{yang2025punctuation,
-  title={Development and Application of a Deep Learning–Based Model for Automated Punctuation Inference in Korean Classical Chinese},
+  title={Development and Application of a Deep Learning--Based Model for Automated Punctuation Inference in Korean Classical Chinese},
   author={Yang, Junghyun},
   journal={The Korean Journal of History (Yoksahak Yongu)},
-  year={2025},
   volume={100},
-  publisher={Honam Historical Society}
+  pages={267--297},
+  year={2025},
+  publisher={Honam Historical Society},
+  doi={10.37924/JSSW.100.9}
 }
 ```
 
@@ -739,7 +780,7 @@ The Korean Journal of History (Yoksahak Yongu), 100, 267-297. 10.37924/JSSW.100.
 - Volume: 100
 - Publication: November 30, 2025
 - Publisher: Honam Historical Society
-- DOI: 10.37924/JSSW.100.9
+- DOI: [10.37924/JSSW.100.9](https://doi.org/10.37924/JSSW.100.9)
 
 ### License and Terms of Use
 
@@ -821,7 +862,4 @@ Future research directions proposed in the paper:
 
 ### Disclaimer
 
-The punctuation prediction results of this program may not be perfect. For important academic materials or publications, please use after expert review.
-
-Disclaimer
 The punctuation prediction results of this program may not be perfect. For important academic materials or publications, please use after expert review.
