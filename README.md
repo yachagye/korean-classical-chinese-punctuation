@@ -363,7 +363,7 @@ python 구두점_지정_실행파일_빌드_v2_SikuRoBERTa.py
   * Epochs: 3
   * Mixed Precision: bf16
 
-**v2.0 (v2 최초 공개)**
+**v2.0**
 
 * **Base Model**: SikuRoBERTa (`SIKU-BERT/sikuroberta`)
 * 기타 설정 동일
@@ -851,7 +851,7 @@ python 구두점_지정_실행파일_빌드_v2_SikuRoBERTa.py
 
 ### Model Architecture
 
-**v2 (Latest Recommended)**
+**v2.5 (Latest Recommended)**
 
 * **Base Model**: SikuRoBERTa (`SIKU-BERT/sikuroberta`)
 * **Task**: Multi-label Classification
@@ -863,6 +863,11 @@ python 구두점_지정_실행파일_빌드_v2_SikuRoBERTa.py
   * Learning Rate: 2e-5
   * Epochs: 3
   * Mixed Precision: bf16
+  
+**v2**
+
+* **Base Model**: SikuRoBERTa (`SIKU-BERT/sikuroberta`)
+* Other settings identical
 
 **v1 (Paper Version)**
 
