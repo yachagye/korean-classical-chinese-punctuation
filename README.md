@@ -5,6 +5,7 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![GitHub](https://img.shields.io/badge/GitHub-yachagye-181717?logo=github)](https://github.com/yachagye/korean-classical-chinese-punctuation)
 [![DOI](https://img.shields.io/badge/DOI-10.37924/JSSW.100.9-blue)](https://doi.org/10.37924/JSSW.100.9)
+[![DOI](https://img.shields.io/badge/DOI-10.17948/kcs.2026.111.7-blue)](https://doi.org/10.17948/kcs.2026..111.7)
 
 [English](#english) | [한국어](#korean)
 
@@ -47,6 +48,8 @@ v2.5는 v2.0에서 공개된 SIKU-BERT 기반 한국 고전한문 구두점 예�
 - 토큰 마스크 적용 후 가중 평균(masked mean) 방식으로 손실 계산
 - 안정성 및 재현성 중심의 단순화된 학습 정책
 
+> v2.0(PatternAwareLoss)과 v2.5(표준 BCE)는 동등한 성능을 보였으며, 닫힘 기호(》)에서 v2.0이 재현율의 소폭 우위를 나타낸 것 외에 유의미한 차이는 관찰되지 않았다. 충분한 학습 데이터와 도메인 특화 사전학습이 확보된 조건에서는 연속 표점의 구조적 패턴이 손실 함수의 명시적 규칙 없이도 학습 과정에서 확률적으로 수렴함을 확인하였다. 이에 추가 가정이 없는 단순한 학습 구조의 v2.5를 최종 모델로 채택하였다. (민족문화연구 111)
+
 **검증 결과 - F1: 0.9110 (v2.5)**  
 7종 구두점:
 - ?: F1=0.9485, P=0.9435, R=0.9535
@@ -61,9 +64,9 @@ v2.5는 v2.0에서 공개된 SIKU-BERT 기반 한국 고전한문 구두점 예�
 
 | 버전 | 사전학습 모델 | F1 Score | 비고 |
 |------|--------------|----------|------|
-| **v2.5** | SikuRoBERTa (`SIKU-BERT/sikuroberta`) | **0.9110** | 최신 권장 |
-| v2.0 | SikuRoBERTa (`SIKU-BERT/sikuroberta`) | 0.9110 | v2 최초 공개 |
-| v1.0 | Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`) | 0.9050 | 논문 게재 버전 |
+| **v2.5** | SikuRoBERTa (`SIKU-BERT/sikuroberta`) | **0.9110** | 최신 권장 (민족문화연구 111 게재) |
+| v2.0 | SikuRoBERTa (`SIKU-BERT/sikuroberta`) | 0.9110 | 설계 검증(reference) 모델 (민족문화연구 111 게재) |
+| v1.0 | Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`) | 0.9050 | 역사학연구 100 게재 |
 
 ### 성능
 
@@ -87,19 +90,19 @@ v2.5는 v2.0에서 공개된 SIKU-BERT 기반 한국 고전한문 구두점 예�
 | 》 | 0.7311 | 0.7764 | 0.7735 | 0.8024 | 0.8126 | 0.8108 | 0.6713 | 0.7432 | 0.7395 |
 | ! | 0.6369 | 0.7007 | 0.7015 | 0.8114 | 0.8399 | 0.8437 | 0.5241 | 0.6011 | 0.6003 |
 
-**도메인별 성능 (v1)**
+**도메인별 성능 (v1.0 → v2.5)**
 
-| 도메인 | F1 Score | 데이터 규모(총 문자 수) |
-|--------|----------|------|
-| 연대기 | 0.9162 | 30,682,976 |
-| 등록 | 0.9114 | 1,896,232 |
-| 지리지 | 0.9116 | 501,942 |
-| 전기 | 0.8606 | 591,983 |
-| 법령 | 0.8485 | 907,893 |
-| 문집 | 0.8354 | 1,885,268 |
-| 일기 | 0.8229 | 544,768 |
+| 도메인 | v1.0 F1 | v2.5 F1 | 개선폭 | 데이터 규모(총 문자 수) |
+|--------|---------|---------|--------|------|
+| 지리지 | 0.9116 | 0.9385 | +0.0269 | 501,942 |
+| 연대기 | 0.9162 | 0.9199 | +0.0037 | 30,682,976 |
+| 등록 | 0.9114 | 0.9257 | +0.0143 | 1,896,232 |
+| 전기 | 0.8606 | 0.8953 | +0.0347 | 591,983 |
+| 법령 | 0.8485 | 0.8799 | +0.0314 | 907,893 |
+| 문집 | 0.8354 | 0.8693 | +0.0339 | 1,885,268 |
+| 일기 | 0.8229 | 0.8515 | +0.0286 | 544,768 |
 
-*v2 도메인별 상세 성능은 추후 업데이트 예정*
+*v1.0에서 이미 0.91 이상의 안정적 성능을 보인 연대기는 소폭 개선에 그친 반면, 상대적으로 성능이 낮았던 일기·문집·법령·전기 유형에서 개선폭이 크게 나타난다(상세 분석은 민족문화연구 111 참조).*
 
 **외부 검증 (미학습 데이터, v1)**
 
@@ -393,6 +396,9 @@ korean-classical-chinese-punctuation/
 ```
 양정현 (2025). 딥러닝 기반 한국 고전한문 표점 추론 자동화 모델의 구축과 활용. 
 역사학연구, 100, 267-297. https://doi.org/10.37924/JSSW.100.9
+
+양정현 (2026). 해석의 관습: 한국 고전 한문 전용 표점 추론 모델의 개선. 
+민족문화연구, 111, 7-29. https://doi.org/10.17948/kcs.2026..111.7
 ```
 
 **BibTeX:**
@@ -408,15 +414,36 @@ korean-classical-chinese-punctuation/
   publisher={호남사학회},
   doi={10.37924/JSSW.100.9}
 }
+
+@article{yang2026interpretation,
+  title={해석의 관습: 한국 고전 한문 전용 표점 추론 모델의 개선},
+  author={양정현},
+  journal={민족문화연구},
+  volume={111},
+  pages={7--29},
+  year={2026},
+  publisher={고려대학교 민족문화연구원},
+  doi={10.17948/kcs.2026..111.7}
+}
 ```
 
 **논문 정보:**
 
-* 저널: 역사학연구 (The Korean Journal of History)
-* 권호: 100호
-* 발행: 2025년 11월 30일
-* 출판사: 호남사학회
-* DOI: [10.37924/JSSW.100.9](https://doi.org/10.37924/JSSW.100.9)
+* v1.0 (선행 연구)
+
+  * 저널: 역사학연구 (The Korean Journal of History)
+  * 권호: 100호
+  * 발행: 2025년 11월 30일
+  * 출판사: 호남사학회
+  * DOI: [10.37924/JSSW.100.9](https://doi.org/10.37924/JSSW.100.9)
+
+* v2.0–v2.5 (개선 연구)
+
+  * 저널: 민족문화연구 (Korean Cultural Studies)
+  * 권호: 111호
+  * 발행: 2026년
+  * 출판사: 고려대학교 민족문화연구원
+  * DOI: [10.17948/kcs.2026..111.7](https://doi.org/10.17948/kcs.2026..111.7)
 
 ### 라이선스 및 사용 조건
 
@@ -493,7 +520,7 @@ korean-classical-chinese-punctuation/
 
 ### 제한 사항
 
-1. **쌍 구조 표점**: 서명 인용부호(《》)는 F1 ~0.73으로 다른 구두점 대비 낮은 성능
+1. **쌍 구조 표점**: 서명 인용부호(《》)는 F1 ~0.78로 다른 구두점 대비 낮은 성능
 2. **희소 데이터**: 느낌표(!)는 학습 데이터 부족으로 재현율 저하
 3. **모델 컨텍스트**: 512 토큰 단위로 처리 (슬라이딩 윈도우로 긴 텍스트 자동 처리)
 4. **도메인 편향**: 공식 기록물 중심 학습으로 사적 문헌에서 성능 저하 가능
@@ -551,6 +578,8 @@ The model architecture, task definition, and data scheme remain identical to v2.
 * Masked-mean loss computation based on token attention masks
 * Simplified training policy prioritizing stability and reproducibility
 
+> v2.0 (PatternAwareLoss) and v2.5 (standard BCE) showed equivalent performance, with no significant difference observed apart from a slight recall advantage of v2.0 on the closing bracket (》). Given sufficient training data and domain-specific pretraining, the structural pattern of consecutive punctuation marks converges probabilistically during training even without an explicit loss-function rule. Accordingly, v2.5—the simpler training structure without additional assumptions—was adopted as the final model. (Korean Cultural Studies, vol. 111)
+
 **Validation - F1: 0.9110 (v2.5)**
 Per punctuation:
 
@@ -564,11 +593,11 @@ Per punctuation:
 
 ### Model Versions
 
-| Version  | Pre-trained Model                               | F1 Score   | Note               |
-| -------- | ----------------------------------------------- | ---------- | ------------------ |
-| **v2.5** | SikuRoBERTa (`SIKU-BERT/sikuroberta`)           | **0.9110** | Latest Recommended |
-| v2.0     | SikuRoBERTa (`SIKU-BERT/sikuroberta`)           | 0.9110     | Initial v2 Release |
-| v1.0     | Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`) | 0.9050     | Published in Paper |
+| Version  | Pre-trained Model                               | F1 Score   | Note                                          |
+| -------- | ----------------------------------------------- | ---------- | --------------------------------------------- |
+| **v2.5** | SikuRoBERTa (`SIKU-BERT/sikuroberta`)           | **0.9110** | Latest Recommended (Korean Cultural Studies 111) |
+| v2.0     | SikuRoBERTa (`SIKU-BERT/sikuroberta`)           | 0.9110     | Reference Model (Korean Cultural Studies 111) |
+| v1.0     | Chinese-RoBERTa (`hfl/chinese-roberta-wwm-ext`) | 0.9050     | Korean Journal of History 100                 |
 
 ### Performance
 
@@ -592,19 +621,19 @@ Per punctuation:
 | 》           | 0.7311  | 0.7764  | 0.7735  | 0.8024         | 0.8126         | 0.8108         | 0.6713      | 0.7432      | 0.7395      |
 | !           | 0.6369  | 0.7007  | 0.7015  | 0.8114         | 0.8399         | 0.8437         | 0.5241      | 0.6011      | 0.6003      |
 
-**Domain-specific Performance (v1)**
+**Domain-specific Performance (v1.0 → v2.5)**
 
-| Domain      | F1 Score | Data Size (Total Characters) |
-| ----------- | -------- | ---------------------------- |
-| Chronicles  | 0.9162   | 30,682,976                   |
-| Registers   | 0.9114   | 1,896,232                    |
-| Gazetteers  | 0.9116   | 501,942                      |
-| Biographies | 0.8606   | 591,983                      |
-| Legal Codes | 0.8485   | 907,893                      |
-| Collections | 0.8354   | 1,885,268                    |
-| Diaries     | 0.8229   | 544,768                      |
+| Domain      | v1.0 F1 | v2.5 F1 | Δ F1    | Data Size (Total Characters) |
+| ----------- | ------- | ------- | ------- | ---------------------------- |
+| Gazetteers  | 0.9116  | 0.9385  | +0.0269 | 501,942                      |
+| Chronicles  | 0.9162  | 0.9199  | +0.0037 | 30,682,976                   |
+| Registers   | 0.9114  | 0.9257  | +0.0143 | 1,896,232                    |
+| Biographies | 0.8606  | 0.8953  | +0.0347 | 591,983                      |
+| Legal Codes | 0.8485  | 0.8799  | +0.0314 | 907,893                      |
+| Collections | 0.8354  | 0.8693  | +0.0339 | 1,885,268                    |
+| Diaries     | 0.8229  | 0.8515  | +0.0286 | 544,768                      |
 
-*Detailed v2 Domain-specific performance to be updated*
+*Chronicles, which already exceeded 0.91 in v1.0, show only a marginal gain, whereas Diaries, Collections, Legal Codes, and Biographies—relatively lower-performing types—show larger gains (see Korean Cultural Studies, vol. 111, for detailed analysis).*
 
 **External Validation (Unseen Data, v1)**
 
@@ -896,6 +925,10 @@ Yang, J. (2025). Development and Application of a Deep Learning–Based Model
 for Automated Punctuation Inference in Korean Classical Chinese. 
 The Korean Journal of History (Yoksahak Yongu), 100, 267-297. 
 https://doi.org/10.37924/JSSW.100.9
+
+Yang, J. (2026). Conventions of Interpretation: Improving a Punctuation 
+Prediction Model for Korean Classical Chinese. Korean Cultural Studies, 
+111, 7-29. https://doi.org/10.17948/kcs.2026..111.7
 ```
 
 **BibTeX:**
@@ -911,15 +944,36 @@ https://doi.org/10.37924/JSSW.100.9
   publisher={Honam Historical Society},
   doi={10.37924/JSSW.100.9}
 }
+
+@article{yang2026interpretation,
+  title={Conventions of Interpretation: Improving a Punctuation Prediction Model for Korean Classical Chinese},
+  author={Yang, Junghyun},
+  journal={Korean Cultural Studies},
+  volume={111},
+  pages={7--29},
+  year={2026},
+  publisher={Research Institute of Korean Studies, Korea University},
+  doi={10.17948/kcs.2026..111.7}
+}
 ```
 
 **Paper Information:**
 
-* Journal: The Korean Journal of History (Yoksahak Yongu)
-* Volume: 100
-* Publication: November 30, 2025
-* Publisher: Honam Historical Society
-* DOI: [10.37924/JSSW.100.9](https://doi.org/10.37924/JSSW.100.9)
+* v1.0 (Prior Study)
+
+  * Journal: The Korean Journal of History (Yoksahak Yongu)
+  * Volume: 100
+  * Publication: November 30, 2025
+  * Publisher: Honam Historical Society
+  * DOI: [10.37924/JSSW.100.9](https://doi.org/10.37924/JSSW.100.9)
+
+* v2.0–v2.5 (Improvement Study)
+
+  * Journal: Korean Cultural Studies
+  * Volume: 111
+  * Publication: 2026
+  * Publisher: Research Institute of Korean Studies, Korea University
+  * DOI: [10.17948/kcs.2026..111.7](https://doi.org/10.17948/kcs.2026..111.7)
 
 ### License and Terms of Use
 
@@ -996,7 +1050,7 @@ Future research directions proposed in the paper:
 
 ### Limitations
 
-1. **Paired Punctuation**: Title quotation marks (《》) show lower performance (~F1 0.73) compared to other punctuation
+1. **Paired Punctuation**: Title quotation marks (《》) show lower performance (~F1 0.78) compared to other punctuation
 2. **Sparse Data**: Exclamation marks (!) have low recall due to insufficient training data
 3. **Model Context**: Processes in 512-token units (automatic handling of long texts via sliding window)
 4. **Domain Bias**: Training focused on official records may lead to performance degradation on private documents
